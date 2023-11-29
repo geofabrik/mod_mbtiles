@@ -1,0 +1,73 @@
+#!/usr/bin/make -f
+
+CFLAGS = -Wall -g
+
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -O0
+else
+	CFLAGS += -O2
+endif
+
+build: build-stamp
+
+build-stamp:  
+	dh_testdir
+
+	# Add commands to compile the package here.
+	apxs -lsqlite3 -c mod_mbtiles.c 
+
+	touch $@
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp mod_mbtiles.la
+
+	# Add commands to clean up after the build process here.
+	[ ! -f Makefile ] || $(MAKE) clean
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	# Add commands to install the package into debian/libapache2-mod-mbtiles here.
+	install -m 644 -c .libs/mod_mbtiles.so \
+	   $(CURDIR)/debian/libapache2-mod-mbtiles/usr/lib/apache2/modules
+	install -m 644 -c debian/mbtiles.load \
+	   $(CURDIR)/debian/libapache2-mod-mbtiles/etc/apache2/mods-available
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+#	dh_installchangelogs ChangeLog
+	dh_installchangelogs
+	dh_installdocs
+	dh_installexamples
+#	dh_install
+#	dh_installmenu
+#	dh_installdebconf
+#	dh_installlogrotate
+#	dh_installinit
+	dh_installman
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+#	dh_makeshlibs
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install
+

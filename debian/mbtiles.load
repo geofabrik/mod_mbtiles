@@ -1,0 +1,1 @@
+LoadModule mbtiles_module /usr/lib/apache2/modules/mod_mbtiles.so

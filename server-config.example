@@ -1,0 +1,3 @@
+MbtilesEnabled true
+MbtilesAdd vt "/path/to/my/vector_tiles.mbtiles"
+MbtilesAdd dem "/path/to/my/dem.mbtiles"

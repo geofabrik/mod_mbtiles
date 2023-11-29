@@ -1,0 +1,3 @@
+libapache2-mod-mbtiles-dbgsym_0.1_amd64.ddeb debug optional automatic=yes
+libapache2-mod-mbtiles_0.1_amd64.buildinfo web extra
+libapache2-mod-mbtiles_0.1_amd64.deb web extra

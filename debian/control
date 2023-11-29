@@ -1,0 +1,12 @@
+Source: libapache2-mod-mbtiles
+Priority: extra
+Maintainer: Frederik Ramm <frederik.ramm@geofabrik.de>
+Build-Depends: debhelper (>= 6), apache2-prefork-dev (>= 2.2.3) | apache2-dev (>= 2.4) | apache2-threaded-dev (>= 2.2.3), libsqlite3-dev
+Standards-Version: 3.8.0
+Section: web
+
+Package: libapache2-mod-mbtiles
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, apache2-data, apache2, sqlite3
+Description: MBTiles modules apache2
+ Serve tiles with Apache directly from an .mbtiles file
