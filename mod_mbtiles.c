@@ -135,7 +135,7 @@ static void processStarting(apr_pool_t *pool, server_rec *s) {
 }
 static apr_status_t processEnding(void *d) {
 	for (int i=0; i<numLoaded; i++) {
-		sqlite3_close(tilesets[i].db);
+		if (tilesets[i].opened) sqlite3_close(tilesets[i].db);
 		tilesets[i].opened = 0;
 	}
 }
